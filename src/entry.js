@@ -6,7 +6,7 @@ const install = function installElementUiAdmin(Vue) {
   if (install.installed) return;
   install.installed = true;
   Object.entries(components).forEach(([componentName, component]) => {
-    Vue.component(componentName, component);
+    Vue.component(component.name, component);
   });
 };
 

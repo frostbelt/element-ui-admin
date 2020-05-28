@@ -1,17 +1,15 @@
+<template>
+  <div id="app">
+    <el-checkbox-string></el-checkbox-string>
+  </div>
+</template>
+
 <script>
 import Vue from 'vue';
-import { ElementUiAdminSample } from '@/entry';
+import ElementUiAdmin from '@/entry';
+Vue.use(ElementUiAdmin);
 
 export default Vue.extend({
   name: 'ServeDev',
-  components: {
-    ElementUiAdminSample,
-  }
 });
 </script>
-
-<template>
-  <div id="app">
-    <element-ui-admin-sample />
-  </div>
-</template>

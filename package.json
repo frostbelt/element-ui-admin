@@ -2,17 +2,14 @@
   "name": "element-ui-admin",
   "version": "1.0.0",
   "description": "",
-
   "main": "dist/element-ui-admin.ssr.js",
   "browser": "dist/element-ui-admin.esm.js",
   "module": "dist/element-ui-admin.esm.js",
   "unpkg": "dist/element-ui-admin.min.js",
-
   "files": [
     "dist/*",
     "src/**/*.vue"
   ],
-
   "scripts": {
     "serve": "vue-cli-service serve dev/serve.js",
     "build": "cross-env NODE_ENV=production rollup --config build/rollup.config.js",
@@ -20,10 +17,7 @@
     "build:es": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format es",
     "build:unpkg": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format iife"
   },
-
-  "dependencies": {
-  },
-
+  "dependencies": {},
   "devDependencies": {
     "@babel/core": "^7.9.0",
     "@babel/preset-env": "^7.9.5",
@@ -32,6 +26,8 @@
     "@rollup/plugin-replace": "^2.3.2",
     "@vue/cli-plugin-babel": "^4.3.1",
     "@vue/cli-service": "^4.3.1",
+    "babel-preset-es2015-rollup": "^3.0.0",
+    "babel-preset-latest": "^6.24.1",
     "cross-env": "^7.0.2",
     "minimist": "^1.2.5",
     "rollup": "^2.7.3",
