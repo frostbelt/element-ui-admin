@@ -59,7 +59,6 @@ export default {
     onChange () {
       // v-model
       this.$emit('input', this.fixedValue.join(","));
-      // @change
       this.$emit('change', this.fixedValue.join(","));
     },
 
