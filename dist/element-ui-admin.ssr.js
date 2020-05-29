@@ -194,8 +194,7 @@ var script = {
     // 选择时间
     onChange: function onChange() {
       // v-model
-      this.$emit('input', this.fixedValue.join(",")); // @change
-
+      this.$emit('input', this.fixedValue.join(","));
       this.$emit('change', this.fixedValue.join(","));
     },
     init: function init() {
@@ -303,10 +302,10 @@ var __vue_staticRenderFns__ = [];
 var __vue_inject_styles__ = undefined;
 /* scoped */
 
-var __vue_scope_id__ = "data-v-ca1cb58e";
+var __vue_scope_id__ = "data-v-17a03555";
 /* module identifier */
 
-var __vue_module_identifier__ = "data-v-ca1cb58e";
+var __vue_module_identifier__ = "data-v-17a03555";
 /* functional template */
 
 var __vue_is_functional_template__ = false;
