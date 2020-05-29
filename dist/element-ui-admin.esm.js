@@ -110,7 +110,9 @@ const Helper = {
     return data;
   }
 
-};
+}; // debug
+
+window.ElementUiAdminHelper = Helper;
 
 var script = {
   name: "el-checkbox-string",
@@ -195,9 +197,8 @@ var script = {
   },
 
   mounted() {
-    this.init(); // test
-
-    window.ElCheckboxString = this;
+    this.init(); // debug
+    // window.ElCheckboxString = this;
   },
 
   watch: {
@@ -292,7 +293,7 @@ const __vue_script__ = script;
 const __vue_inject_styles__ = undefined;
 /* scoped */
 
-const __vue_scope_id__ = "data-v-c57f1336";
+const __vue_scope_id__ = "data-v-4ad362f6";
 /* module identifier */
 
 const __vue_module_identifier__ = undefined;

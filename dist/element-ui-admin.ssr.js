@@ -183,7 +183,9 @@ function _nonIterableRest() {
     });
     return data;
   }
-};var script = {
+}; // debug
+
+window.ElementUiAdminHelper = Helper;var script = {
   name: "el-checkbox-string",
   template: "\n  <el-checkbox-group\n    v-model=\"fixedValue\"\n    :min=\"min\"\n    :max=\"max\"\n    @change=\"onChange\">\n    <el-checkbox \n      v-for=\"(item_option, index_option) in fixedOptions\" \n      :key=\"index_option\"\n      :label=\"item_option[value_id]\">\n      {{item_option[value_name]}}\n    </el-checkbox>\n  </el-checkbox-group>\n  ",
   props: {
@@ -245,9 +247,8 @@ function _nonIterableRest() {
     }
   },
   mounted: function mounted() {
-    this.init(); // test
-
-    window.ElCheckboxString = this;
+    this.init(); // debug
+    // window.ElCheckboxString = this;
   },
   watch: {
     value: function value(_value) {
@@ -336,10 +337,10 @@ var __vue_script__ = script;
 var __vue_inject_styles__ = undefined;
 /* scoped */
 
-var __vue_scope_id__ = "data-v-c57f1336";
+var __vue_scope_id__ = "data-v-4ad362f6";
 /* module identifier */
 
-var __vue_module_identifier__ = "data-v-c57f1336";
+var __vue_module_identifier__ = "data-v-4ad362f6";
 /* functional template */
 
 var __vue_is_functional_template__ = undefined;
