@@ -54,7 +54,7 @@ const Helper = {
   },
 
   /**
-   * 将 data 只有所有符合 options 规则的值转为 string
+   * 将 data 只有所有符合 options 规则的 int 值转为 string
    * @param {Object} data 
    * @param {Object} options 
    * @example
@@ -62,9 +62,24 @@ const Helper = {
    *      {
    *        id : 1,
    *        name : "教程",
+   *        list : [
+   *          {
+   *            id : 12,
+   *            name : "数学",
+   *          },
+   *        ],
+   *      },
+   *      {
+   *        id : 2,
+   *        name : "影视",
    *      },
    *    ], {
    *      keys : ["id"],          // 所有 id, int -> string
+   *    })
+   * 
+   *    Helper.getFixedData({
+   *      permisson : [1, 2, 3],
+   *    }, {
    *      lists : ["permisson"],  // 所有 permisson，intArray -> stringArray
    *    })
    */
