@@ -239,7 +239,6 @@ window.ElementUiAdminHelper = Helper;var script = {
     }
   },
   methods: {
-    // props 变化
     update: function update() {
       if (!this.value) {
         this.fixedValue = [];
@@ -347,10 +346,10 @@ var __vue_script__ = script;
 var __vue_inject_styles__ = undefined;
 /* scoped */
 
-var __vue_scope_id__ = "data-v-4150d73d";
+var __vue_scope_id__ = "data-v-0067d74e";
 /* module identifier */
 
-var __vue_module_identifier__ = "data-v-4150d73d";
+var __vue_module_identifier__ = "data-v-0067d74e";
 /* functional template */
 
 var __vue_is_functional_template__ = undefined;
@@ -389,11 +388,12 @@ var __vue_component__ = /*#__PURE__*/normalizeComponent({}, __vue_inject_styles_
   },
   computed: {
     fixedOptions: function fixedOptions() {
-      return this.$helper.getFixedDataList(this.options);
+      return Helper.getFixedData(this.options, {
+        keys: [this.value_id]
+      });
     }
   },
   methods: {
-    // props 变化
     update: function update() {
       if (!this.value) {
         this.fixedValue = [];
@@ -428,10 +428,10 @@ var __vue_script__$1 = script$1;
 var __vue_inject_styles__$1 = undefined;
 /* scoped */
 
-var __vue_scope_id__$1 = "data-v-db1bab34";
+var __vue_scope_id__$1 = "data-v-228f94d9";
 /* module identifier */
 
-var __vue_module_identifier__$1 = "data-v-db1bab34";
+var __vue_module_identifier__$1 = "data-v-228f94d9";
 /* functional template */
 
 var __vue_is_functional_template__$1 = undefined;
@@ -461,7 +461,6 @@ var __vue_component__$1 = /*#__PURE__*/normalizeComponent({}, __vue_inject_style
     };
   },
   methods: {
-    // props 变化
     update: function update() {
       if (!this.value) {
         this.fixedValue = "";
@@ -502,10 +501,10 @@ var __vue_script__$2 = script$2;
 var __vue_inject_styles__$2 = undefined;
 /* scoped */
 
-var __vue_scope_id__$2 = "data-v-5ceee652";
+var __vue_scope_id__$2 = "data-v-11812d8a";
 /* module identifier */
 
-var __vue_module_identifier__$2 = "data-v-5ceee652";
+var __vue_module_identifier__$2 = "data-v-11812d8a";
 /* functional template */
 
 var __vue_is_functional_template__$2 = undefined;
