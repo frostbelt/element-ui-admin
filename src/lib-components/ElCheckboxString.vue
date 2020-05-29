@@ -1,13 +1,22 @@
-<template>
-  <div>
-    111
-  </div>
-</template>
 <script>
 import Helper from "./helper"
 
 export default {
   name: "el-checkbox-string",
+  template : `
+  <el-checkbox-group
+    v-model="fixedValue"
+    :min="min"
+    :max="max"
+    @change="onChange">
+    <el-checkbox 
+      v-for="(item_option, index_option) in fixedOptions" 
+      :key="index_option"
+      :label="item_option[value_id]">
+      {{item_option[value_name]}}
+    </el-checkbox>
+  </el-checkbox-group>
+  `,
   props : {
     value : {
       default : "",
@@ -40,7 +49,9 @@ export default {
   },
   computed : {
     fixedOptions () {
-      let options = Helper.getFixedData(this.options);
+      let options = Helper.getFixedData(this.options, {
+        keys : [this.value_id],
+      });
 
       return options;
     },
@@ -68,6 +79,9 @@ export default {
   },
   mounted () {
     this.init();
+
+    // test
+    window.ElCheckboxString = this;
   },
   watch : {
     value (value) {

@@ -58,11 +58,50 @@ const Helper = {
    * @param {Object} data 
    * @param {Object} options 
    * @example
-   *    Helper.getFixedData({
-   *      
+   *    Helper.getFixedData([
+   *      {
+   *        id : 1,
+   *        name : "教程",
+   *      },
+   *    ], {
+   *      keys : ["id"],          // 所有 id, int -> string
+   *      lists : ["permisson"],  // 所有 permisson，intArray -> stringArray
    *    })
    */
   getFixedData (data, options) {
+    if(!options){
+      return data;
+    }
+    data = this.copyObj(data);
+
+    if(Array.isArray(data)){
+      return data.map(item => {
+        return this.getFixedData(item, options);
+      });
+    }
+
+    if(typeof data != "object"){
+      return data;
+    }
+
+    Object.keys(data).forEach(key => {
+      let value = data[key];
+      if((options.keys || []).includes(key) && typeof value == "number"){
+        data[key] = String(value);
+      }
+      else if((options.lists || []).includes(key) && Array.isArray(value)){
+        data[key] = value.map(item => {
+          if(typeof item == "number"){
+            return String(item);
+          }
+          return item;
+        });
+      }
+      else if(typeof value == "object"){
+        data[key] = this.getFixedData(value, options);
+      }
+    });
+
     return data;
   },
 }

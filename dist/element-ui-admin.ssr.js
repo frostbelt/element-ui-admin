@@ -135,16 +135,57 @@ function _nonIterableRest() {
    * @param {Object} data 
    * @param {Object} options 
    * @example
-   *    Helper.getFixedData({
-   *      
+   *    Helper.getFixedData([
+   *      {
+   *        id : 1,
+   *        name : "教程",
+   *      },
+   *    ], {
+   *      keys : ["id"],          // 所有 id, int -> string
+   *      lists : ["permisson"],  // 所有 permisson，intArray -> stringArray
    *    })
    */
   getFixedData: function getFixedData(data, options) {
+    var _this2 = this;
+
+    if (!options) {
+      return data;
+    }
+
+    data = this.copyObj(data);
+
+    if (Array.isArray(data)) {
+      return data.map(function (item) {
+        return _this2.getFixedData(item, options);
+      });
+    }
+
+    if (_typeof(data) != "object") {
+      return data;
+    }
+
+    Object.keys(data).forEach(function (key) {
+      var value = data[key];
+
+      if ((options.keys || []).includes(key) && typeof value == "number") {
+        data[key] = String(value);
+      } else if ((options.lists || []).includes(key) && Array.isArray(value)) {
+        data[key] = value.map(function (item) {
+          if (typeof item == "number") {
+            return String(item);
+          }
+
+          return item;
+        });
+      } else if (_typeof(value) == "object") {
+        data[key] = _this2.getFixedData(value, options);
+      }
+    });
     return data;
   }
-};//
-var script = {
+};var script = {
   name: "el-checkbox-string",
+  template: "\n  <el-checkbox-group\n    v-model=\"fixedValue\"\n    :min=\"min\"\n    :max=\"max\"\n    @change=\"onChange\">\n    <el-checkbox \n      v-for=\"(item_option, index_option) in fixedOptions\" \n      :key=\"index_option\"\n      :label=\"item_option[value_id]\">\n      {{item_option[value_name]}}\n    </el-checkbox>\n  </el-checkbox-group>\n  ",
   props: {
     value: {
       default: ""
@@ -177,7 +218,9 @@ var script = {
   },
   computed: {
     fixedOptions: function fixedOptions() {
-      var options = Helper.getFixedData(this.options);
+      var options = Helper.getFixedData(this.options, {
+        keys: [this.value_id]
+      });
       return options;
     }
   },
@@ -202,7 +245,9 @@ var script = {
     }
   },
   mounted: function mounted() {
-    this.init();
+    this.init(); // test
+
+    window.ElCheckboxString = this;
   },
   watch: {
     value: function value(_value) {
@@ -286,39 +331,25 @@ var script = {
 var __vue_script__ = script;
 /* template */
 
-var __vue_render__ = function __vue_render__() {
-  var _vm = this;
-
-  var _h = _vm.$createElement;
-
-  var _c = _vm._self._c || _h;
-
-  return _c('div', [_vm._ssrNode("\n  111\n")]);
-};
-
-var __vue_staticRenderFns__ = [];
 /* style */
 
 var __vue_inject_styles__ = undefined;
 /* scoped */
 
-var __vue_scope_id__ = "data-v-17a03555";
+var __vue_scope_id__ = "data-v-c57f1336";
 /* module identifier */
 
-var __vue_module_identifier__ = "data-v-17a03555";
+var __vue_module_identifier__ = "data-v-c57f1336";
 /* functional template */
 
-var __vue_is_functional_template__ = false;
+var __vue_is_functional_template__ = undefined;
 /* style inject */
 
 /* style inject SSR */
 
 /* style inject shadow dom */
 
-var __vue_component__ = /*#__PURE__*/normalizeComponent({
-  render: __vue_render__,
-  staticRenderFns: __vue_staticRenderFns__
-}, __vue_inject_styles__, __vue_script__, __vue_scope_id__, __vue_is_functional_template__, __vue_module_identifier__, false, undefined, undefined, undefined);/* eslint-disable import/prefer-default-export */var components=/*#__PURE__*/Object.freeze({__proto__:null,ElCheckboxString: __vue_component__});var install = function installElementUiAdmin(Vue) {
+var __vue_component__ = /*#__PURE__*/normalizeComponent({}, __vue_inject_styles__, __vue_script__, __vue_scope_id__, __vue_is_functional_template__, __vue_module_identifier__, false, undefined, undefined, undefined);/* eslint-disable import/prefer-default-export */var components=/*#__PURE__*/Object.freeze({__proto__:null,ElCheckboxString: __vue_component__});var install = function installElementUiAdmin(Vue) {
   if (install.installed) return;
   install.installed = true;
   Object.entries(components).forEach(function (_ref) {

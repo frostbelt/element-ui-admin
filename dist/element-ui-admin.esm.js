@@ -63,19 +63,71 @@ const Helper = {
    * @param {Object} data 
    * @param {Object} options 
    * @example
-   *    Helper.getFixedData({
-   *      
+   *    Helper.getFixedData([
+   *      {
+   *        id : 1,
+   *        name : "教程",
+   *      },
+   *    ], {
+   *      keys : ["id"],          // 所有 id, int -> string
+   *      lists : ["permisson"],  // 所有 permisson，intArray -> stringArray
    *    })
    */
   getFixedData(data, options) {
+    if (!options) {
+      return data;
+    }
+
+    data = this.copyObj(data);
+
+    if (Array.isArray(data)) {
+      return data.map(item => {
+        return this.getFixedData(item, options);
+      });
+    }
+
+    if (typeof data != "object") {
+      return data;
+    }
+
+    Object.keys(data).forEach(key => {
+      let value = data[key];
+
+      if ((options.keys || []).includes(key) && typeof value == "number") {
+        data[key] = String(value);
+      } else if ((options.lists || []).includes(key) && Array.isArray(value)) {
+        data[key] = value.map(item => {
+          if (typeof item == "number") {
+            return String(item);
+          }
+
+          return item;
+        });
+      } else if (typeof value == "object") {
+        data[key] = this.getFixedData(value, options);
+      }
+    });
     return data;
   }
 
 };
 
-//
 var script = {
   name: "el-checkbox-string",
+  template: `
+  <el-checkbox-group
+    v-model="fixedValue"
+    :min="min"
+    :max="max"
+    @change="onChange">
+    <el-checkbox 
+      v-for="(item_option, index_option) in fixedOptions" 
+      :key="index_option"
+      :label="item_option[value_id]">
+      {{item_option[value_name]}}
+    </el-checkbox>
+  </el-checkbox-group>
+  `,
   props: {
     value: {
       default: ""
@@ -111,7 +163,9 @@ var script = {
 
   computed: {
     fixedOptions() {
-      let options = Helper.getFixedData(this.options);
+      let options = Helper.getFixedData(this.options, {
+        keys: [this.value_id]
+      });
       return options;
     }
 
@@ -141,7 +195,9 @@ var script = {
   },
 
   mounted() {
-    this.init();
+    this.init(); // test
+
+    window.ElCheckboxString = this;
   },
 
   watch: {
@@ -231,39 +287,25 @@ function normalizeComponent(template, style, script, scopeId, isFunctionalTempla
 const __vue_script__ = script;
 /* template */
 
-var __vue_render__ = function () {
-  var _vm = this;
-
-  var _h = _vm.$createElement;
-
-  var _c = _vm._self._c || _h;
-
-  return _c('div', [_vm._v("\n  111\n")]);
-};
-
-var __vue_staticRenderFns__ = [];
 /* style */
 
 const __vue_inject_styles__ = undefined;
 /* scoped */
 
-const __vue_scope_id__ = "data-v-17a03555";
+const __vue_scope_id__ = "data-v-c57f1336";
 /* module identifier */
 
 const __vue_module_identifier__ = undefined;
 /* functional template */
 
-const __vue_is_functional_template__ = false;
+const __vue_is_functional_template__ = undefined;
 /* style inject */
 
 /* style inject SSR */
 
 /* style inject shadow dom */
 
-const __vue_component__ = /*#__PURE__*/normalizeComponent({
-  render: __vue_render__,
-  staticRenderFns: __vue_staticRenderFns__
-}, __vue_inject_styles__, __vue_script__, __vue_scope_id__, __vue_is_functional_template__, __vue_module_identifier__, false, undefined, undefined, undefined);
+const __vue_component__ = /*#__PURE__*/normalizeComponent({}, __vue_inject_styles__, __vue_script__, __vue_scope_id__, __vue_is_functional_template__, __vue_module_identifier__, false, undefined, undefined, undefined);
 
 /* eslint-disable import/prefer-default-export */
 
