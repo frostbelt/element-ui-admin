@@ -26,9 +26,6 @@ export default {
         return [];
       },
     },
-    placeholder : {
-      default : "请选择",
-    },
     value_name : {
       default : "name",
     },
@@ -79,9 +76,6 @@ export default {
   },
   mounted () {
     this.init();
-
-    // debug
-    // window.ElCheckboxString = this;
   },
   watch : {
     value (value) {
