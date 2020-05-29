@@ -106,4 +106,7 @@ const Helper = {
   },
 }
 
+// debug
+window.ElementUiAdminHelper = Helper;
+
 export default Helper;

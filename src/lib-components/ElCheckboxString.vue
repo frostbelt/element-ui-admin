@@ -80,8 +80,8 @@ export default {
   mounted () {
     this.init();
 
-    // test
-    window.ElCheckboxString = this;
+    // debug
+    // window.ElCheckboxString = this;
   },
   watch : {
     value (value) {
