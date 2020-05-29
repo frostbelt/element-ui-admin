@@ -1,22 +1,20 @@
 <script>
-import Helper from "./helper"
-
 export default {
-  name: "el-checkbox-string",
-  template : `
-  <el-checkbox-group
+  name: "el-select-multiple-string",
+  template: `
+  <el-select 
     v-model="fixedValue"
-    :min="min"
-    :max="max"
+    multiple
+    :placeholder="placeholder"
     @change="onChange">
-    <el-checkbox 
+    <el-option 
       v-for="(item_option, index_option) in fixedOptions" 
       :key="index_option"
-      :label="item_option[value_id]">
-      {{item_option[value_name]}}
-    </el-checkbox>
-  </el-checkbox-group>
-  `,
+      :label="item_option[value_name]"
+      :value="item_option[value_id]">
+    </el-option>
+  </el-select>
+  `, 
   props : {
     value : {
       default : "",
@@ -26,17 +24,14 @@ export default {
         return [];
       },
     },
+    placeholder : {
+      default : "请选择",
+    },
     value_name : {
       default : "name",
     },
     value_id : {
       default : "id",
-    },
-    min : {
-      default : 0,
-    },
-    max : {
-      default : Infinity,
     },
   },
   data () {
@@ -46,11 +41,7 @@ export default {
   },
   computed : {
     fixedOptions () {
-      let options = Helper.getFixedData(this.options, {
-        keys : [this.value_id],
-      });
-
-      return options;
+      return this.$helper.getFixedDataList(this.options);
     },
   },
   methods : {

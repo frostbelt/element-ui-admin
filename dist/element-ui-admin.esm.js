@@ -59,7 +59,7 @@ const Helper = {
   },
 
   /**
-   * 将 data 只有所有符合 options 规则的值转为 string
+   * 将 data 只有所有符合 options 规则的 int 值转为 string
    * @param {Object} data 
    * @param {Object} options 
    * @example
@@ -67,9 +67,24 @@ const Helper = {
    *      {
    *        id : 1,
    *        name : "教程",
+   *        list : [
+   *          {
+   *            id : 12,
+   *            name : "数学",
+   *          },
+   *        ],
+   *      },
+   *      {
+   *        id : 2,
+   *        name : "影视",
    *      },
    *    ], {
    *      keys : ["id"],          // 所有 id, int -> string
+   *    })
+   * 
+   *    Helper.getFixedData({
+   *      permisson : [1, 2, 3],
+   *    }, {
    *      lists : ["permisson"],  // 所有 permisson，intArray -> stringArray
    *    })
    */
@@ -140,9 +155,6 @@ var script = {
       }
 
     },
-    placeholder: {
-      default: "请选择"
-    },
     value_name: {
       default: "name"
     },
@@ -183,7 +195,6 @@ var script = {
       this.fixedValue = this.value.split(",");
     },
 
-    // 选择时间
     onChange() {
       // v-model
       this.$emit('input', this.fixedValue.join(","));
@@ -197,8 +208,7 @@ var script = {
   },
 
   mounted() {
-    this.init(); // debug
-    // window.ElCheckboxString = this;
+    this.init();
   },
 
   watch: {
@@ -293,7 +303,7 @@ const __vue_script__ = script;
 const __vue_inject_styles__ = undefined;
 /* scoped */
 
-const __vue_scope_id__ = "data-v-4ad362f6";
+const __vue_scope_id__ = "data-v-4150d73d";
 /* module identifier */
 
 const __vue_module_identifier__ = undefined;
@@ -308,11 +318,331 @@ const __vue_is_functional_template__ = undefined;
 
 const __vue_component__ = /*#__PURE__*/normalizeComponent({}, __vue_inject_styles__, __vue_script__, __vue_scope_id__, __vue_is_functional_template__, __vue_module_identifier__, false, undefined, undefined, undefined);
 
+var script$1 = {
+  name: "el-select-multiple-string",
+  template: `
+  <el-select 
+    v-model="fixedValue"
+    multiple
+    :placeholder="placeholder"
+    @change="onChange">
+    <el-option 
+      v-for="(item_option, index_option) in fixedOptions" 
+      :key="index_option"
+      :label="item_option[value_name]"
+      :value="item_option[value_id]">
+    </el-option>
+  </el-select>
+  `,
+  props: {
+    value: {
+      default: ""
+    },
+    options: {
+      default() {
+        return [];
+      }
+
+    },
+    placeholder: {
+      default: "请选择"
+    },
+    value_name: {
+      default: "name"
+    },
+    value_id: {
+      default: "id"
+    }
+  },
+
+  data() {
+    return {
+      fixedValue: []
+    };
+  },
+
+  computed: {
+    fixedOptions() {
+      return this.$helper.getFixedDataList(this.options);
+    }
+
+  },
+  methods: {
+    // props 变化
+    update() {
+      if (!this.value) {
+        this.fixedValue = [];
+        return;
+      }
+
+      this.fixedValue = this.value.split(",");
+    },
+
+    onChange() {
+      // v-model
+      this.$emit('input', this.fixedValue.join(","));
+      this.$emit('change', this.fixedValue.join(","));
+    },
+
+    init() {
+      this.update();
+    }
+
+  },
+
+  mounted() {
+    this.init();
+  },
+
+  watch: {
+    value(value) {
+      this.update();
+    }
+
+  }
+};
+
+/* script */
+const __vue_script__$1 = script$1;
+/* template */
+
+/* style */
+
+const __vue_inject_styles__$1 = undefined;
+/* scoped */
+
+const __vue_scope_id__$1 = "data-v-db1bab34";
+/* module identifier */
+
+const __vue_module_identifier__$1 = undefined;
+/* functional template */
+
+const __vue_is_functional_template__$1 = undefined;
+/* style inject */
+
+/* style inject SSR */
+
+/* style inject shadow dom */
+
+const __vue_component__$1 = /*#__PURE__*/normalizeComponent({}, __vue_inject_styles__$1, __vue_script__$1, __vue_scope_id__$1, __vue_is_functional_template__$1, __vue_module_identifier__$1, false, undefined, undefined, undefined);
+
+var script$2 = {
+  name: "el-date-picker-second",
+  template: `
+  <el-date-picker
+    v-model="fixedValue"
+    value-format="timestamp"
+    :type="type"
+    :placeholder="placeholder"
+    @change="onChange"
+    @focus="onFocus">
+  </el-date-picker>
+  `,
+  props: {
+    value: {
+      default: ""
+    },
+    type: {
+      default: "datetime"
+    },
+    placeholder: {
+      default: "选择时间"
+    }
+  },
+
+  data() {
+    return {
+      fixedValue: ""
+    };
+  },
+
+  methods: {
+    // props 变化
+    update() {
+      if (!this.value) {
+        this.fixedValue = "";
+        return;
+      }
+
+      this.fixedValue = this.value * 1000;
+    },
+
+    onChange() {
+      // v-model
+      this.$emit('input', Math.floor(this.fixedValue / 1000));
+      this.$emit('change', Math.floor(this.fixedValue / 1000));
+    },
+
+    // 不手动设置时，默认为 1970 年?
+    onFocus() {
+      if (!this.fixedValue) {
+        this.fixedValue = new Date().getTime();
+      }
+    },
+
+    init() {
+      this.update();
+    }
+
+  },
+
+  mounted() {
+    this.init();
+  },
+
+  watch: {
+    value(value) {
+      this.update();
+    }
+
+  }
+};
+
+/* script */
+const __vue_script__$2 = script$2;
+/* template */
+
+/* style */
+
+const __vue_inject_styles__$2 = undefined;
+/* scoped */
+
+const __vue_scope_id__$2 = "data-v-5ceee652";
+/* module identifier */
+
+const __vue_module_identifier__$2 = undefined;
+/* functional template */
+
+const __vue_is_functional_template__$2 = undefined;
+/* style inject */
+
+/* style inject SSR */
+
+/* style inject shadow dom */
+
+const __vue_component__$2 = /*#__PURE__*/normalizeComponent({}, __vue_inject_styles__$2, __vue_script__$2, __vue_scope_id__$2, __vue_is_functional_template__$2, __vue_module_identifier__$2, false, undefined, undefined, undefined);
+
+var script$3 = {
+  name: "el-textarea-comma",
+  template: `
+  <el-input
+    v-model="fixedValue"
+    :rows="rows"
+    :resize="resize"
+    @change="onChange"
+    @blur="onBlur"
+    type="textarea">
+  </el-input>
+  `,
+  props: {
+    value: {
+      default: ""
+    },
+    rows: {
+      default: 3
+    },
+    resize: {
+      default: "none"
+    },
+    disabled: {
+      default: false
+    },
+    distinct: {
+      // blur 时是否排重
+      default: false
+    },
+    filteempty: {
+      // blur 时是否过滤掉空行
+      default: true
+    },
+    sep: {
+      default: ","
+    }
+  },
+
+  data() {
+    return {
+      fixedValue: ""
+    };
+  },
+
+  methods: {
+    update() {
+      this.fixedValue = (this.value || "").split(this.sep).join("\n");
+    },
+
+    onChange() {
+      let value = this.fixedValue.split("\n").join(this.sep);
+      this.$emit('input', value);
+      this.$emit('change', value);
+    },
+
+    onBlur() {
+      if (this.filteempty) {
+        this.fixedValue = this.fixedValue.split("\n").filter(_ => _).join("\n");
+      }
+
+      if (this.distinct) {
+        let temp = {};
+        this.fixedValue.split("\n").forEach(line => {
+          temp[line] = true;
+        });
+        this.fixedValue = Object.keys(temp).join("\n");
+      }
+
+      this.onChange();
+    },
+
+    init() {
+      this.update();
+    }
+
+  },
+
+  mounted() {
+    this.init();
+  },
+
+  watch: {
+    value(value) {
+      this.update();
+    }
+
+  }
+};
+
+/* script */
+const __vue_script__$3 = script$3;
+/* template */
+
+/* style */
+
+const __vue_inject_styles__$3 = undefined;
+/* scoped */
+
+const __vue_scope_id__$3 = "data-v-2717d5ce";
+/* module identifier */
+
+const __vue_module_identifier__$3 = undefined;
+/* functional template */
+
+const __vue_is_functional_template__$3 = undefined;
+/* style inject */
+
+/* style inject SSR */
+
+/* style inject shadow dom */
+
+const __vue_component__$3 = /*#__PURE__*/normalizeComponent({}, __vue_inject_styles__$3, __vue_script__$3, __vue_scope_id__$3, __vue_is_functional_template__$3, __vue_module_identifier__$3, false, undefined, undefined, undefined);
+
 /* eslint-disable import/prefer-default-export */
 
 var components = /*#__PURE__*/Object.freeze({
   __proto__: null,
-  ElCheckboxString: __vue_component__
+  ElCheckboxString: __vue_component__,
+  ElSelectMultipleString: __vue_component__$1,
+  ElDatePickerSecond: __vue_component__$2,
+  ElTextareaComma: __vue_component__$3
 });
 
 // Import vue components
@@ -331,4 +661,4 @@ const plugin = {
 }; // To auto-install on non-es builds, when vue is found
 
 export default plugin;
-export { __vue_component__ as ElCheckboxString };
+export { __vue_component__ as ElCheckboxString, __vue_component__$2 as ElDatePickerSecond, __vue_component__$1 as ElSelectMultipleString, __vue_component__$3 as ElTextareaComma };

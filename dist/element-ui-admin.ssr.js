@@ -131,7 +131,7 @@ function _nonIterableRest() {
   },
 
   /**
-   * 将 data 只有所有符合 options 规则的值转为 string
+   * 将 data 只有所有符合 options 规则的 int 值转为 string
    * @param {Object} data 
    * @param {Object} options 
    * @example
@@ -139,9 +139,24 @@ function _nonIterableRest() {
    *      {
    *        id : 1,
    *        name : "教程",
+   *        list : [
+   *          {
+   *            id : 12,
+   *            name : "数学",
+   *          },
+   *        ],
+   *      },
+   *      {
+   *        id : 2,
+   *        name : "影视",
    *      },
    *    ], {
    *      keys : ["id"],          // 所有 id, int -> string
+   *    })
+   * 
+   *    Helper.getFixedData({
+   *      permisson : [1, 2, 3],
+   *    }, {
    *      lists : ["permisson"],  // 所有 permisson，intArray -> stringArray
    *    })
    */
@@ -197,9 +212,6 @@ window.ElementUiAdminHelper = Helper;var script = {
         return [];
       }
     },
-    placeholder: {
-      default: "请选择"
-    },
     value_name: {
       default: "name"
     },
@@ -236,7 +248,6 @@ window.ElementUiAdminHelper = Helper;var script = {
 
       this.fixedValue = this.value.split(",");
     },
-    // 选择时间
     onChange: function onChange() {
       // v-model
       this.$emit('input', this.fixedValue.join(","));
@@ -247,8 +258,7 @@ window.ElementUiAdminHelper = Helper;var script = {
     }
   },
   mounted: function mounted() {
-    this.init(); // debug
-    // window.ElCheckboxString = this;
+    this.init();
   },
   watch: {
     value: function value(_value) {
@@ -337,10 +347,10 @@ var __vue_script__ = script;
 var __vue_inject_styles__ = undefined;
 /* scoped */
 
-var __vue_scope_id__ = "data-v-4ad362f6";
+var __vue_scope_id__ = "data-v-4150d73d";
 /* module identifier */
 
-var __vue_module_identifier__ = "data-v-4ad362f6";
+var __vue_module_identifier__ = "data-v-4150d73d";
 /* functional template */
 
 var __vue_is_functional_template__ = undefined;
@@ -350,7 +360,255 @@ var __vue_is_functional_template__ = undefined;
 
 /* style inject shadow dom */
 
-var __vue_component__ = /*#__PURE__*/normalizeComponent({}, __vue_inject_styles__, __vue_script__, __vue_scope_id__, __vue_is_functional_template__, __vue_module_identifier__, false, undefined, undefined, undefined);/* eslint-disable import/prefer-default-export */var components=/*#__PURE__*/Object.freeze({__proto__:null,ElCheckboxString: __vue_component__});var install = function installElementUiAdmin(Vue) {
+var __vue_component__ = /*#__PURE__*/normalizeComponent({}, __vue_inject_styles__, __vue_script__, __vue_scope_id__, __vue_is_functional_template__, __vue_module_identifier__, false, undefined, undefined, undefined);var script$1 = {
+  name: "el-select-multiple-string",
+  template: "\n  <el-select \n    v-model=\"fixedValue\"\n    multiple\n    :placeholder=\"placeholder\"\n    @change=\"onChange\">\n    <el-option \n      v-for=\"(item_option, index_option) in fixedOptions\" \n      :key=\"index_option\"\n      :label=\"item_option[value_name]\"\n      :value=\"item_option[value_id]\">\n    </el-option>\n  </el-select>\n  ",
+  props: {
+    value: {
+      default: ""
+    },
+    options: {
+      default: function _default() {
+        return [];
+      }
+    },
+    placeholder: {
+      default: "请选择"
+    },
+    value_name: {
+      default: "name"
+    },
+    value_id: {
+      default: "id"
+    }
+  },
+  data: function data() {
+    return {
+      fixedValue: []
+    };
+  },
+  computed: {
+    fixedOptions: function fixedOptions() {
+      return this.$helper.getFixedDataList(this.options);
+    }
+  },
+  methods: {
+    // props 变化
+    update: function update() {
+      if (!this.value) {
+        this.fixedValue = [];
+        return;
+      }
+
+      this.fixedValue = this.value.split(",");
+    },
+    onChange: function onChange() {
+      // v-model
+      this.$emit('input', this.fixedValue.join(","));
+      this.$emit('change', this.fixedValue.join(","));
+    },
+    init: function init() {
+      this.update();
+    }
+  },
+  mounted: function mounted() {
+    this.init();
+  },
+  watch: {
+    value: function value(_value) {
+      this.update();
+    }
+  }
+};/* script */
+var __vue_script__$1 = script$1;
+/* template */
+
+/* style */
+
+var __vue_inject_styles__$1 = undefined;
+/* scoped */
+
+var __vue_scope_id__$1 = "data-v-db1bab34";
+/* module identifier */
+
+var __vue_module_identifier__$1 = "data-v-db1bab34";
+/* functional template */
+
+var __vue_is_functional_template__$1 = undefined;
+/* style inject */
+
+/* style inject SSR */
+
+/* style inject shadow dom */
+
+var __vue_component__$1 = /*#__PURE__*/normalizeComponent({}, __vue_inject_styles__$1, __vue_script__$1, __vue_scope_id__$1, __vue_is_functional_template__$1, __vue_module_identifier__$1, false, undefined, undefined, undefined);var script$2 = {
+  name: "el-date-picker-second",
+  template: "\n  <el-date-picker\n    v-model=\"fixedValue\"\n    value-format=\"timestamp\"\n    :type=\"type\"\n    :placeholder=\"placeholder\"\n    @change=\"onChange\"\n    @focus=\"onFocus\">\n  </el-date-picker>\n  ",
+  props: {
+    value: {
+      default: ""
+    },
+    type: {
+      default: "datetime"
+    },
+    placeholder: {
+      default: "选择时间"
+    }
+  },
+  data: function data() {
+    return {
+      fixedValue: ""
+    };
+  },
+  methods: {
+    // props 变化
+    update: function update() {
+      if (!this.value) {
+        this.fixedValue = "";
+        return;
+      }
+
+      this.fixedValue = this.value * 1000;
+    },
+    onChange: function onChange() {
+      // v-model
+      this.$emit('input', Math.floor(this.fixedValue / 1000));
+      this.$emit('change', Math.floor(this.fixedValue / 1000));
+    },
+    // 不手动设置时，默认为 1970 年?
+    onFocus: function onFocus() {
+      if (!this.fixedValue) {
+        this.fixedValue = new Date().getTime();
+      }
+    },
+    init: function init() {
+      this.update();
+    }
+  },
+  mounted: function mounted() {
+    this.init();
+  },
+  watch: {
+    value: function value(_value) {
+      this.update();
+    }
+  }
+};/* script */
+var __vue_script__$2 = script$2;
+/* template */
+
+/* style */
+
+var __vue_inject_styles__$2 = undefined;
+/* scoped */
+
+var __vue_scope_id__$2 = "data-v-5ceee652";
+/* module identifier */
+
+var __vue_module_identifier__$2 = "data-v-5ceee652";
+/* functional template */
+
+var __vue_is_functional_template__$2 = undefined;
+/* style inject */
+
+/* style inject SSR */
+
+/* style inject shadow dom */
+
+var __vue_component__$2 = /*#__PURE__*/normalizeComponent({}, __vue_inject_styles__$2, __vue_script__$2, __vue_scope_id__$2, __vue_is_functional_template__$2, __vue_module_identifier__$2, false, undefined, undefined, undefined);var script$3 = {
+  name: "el-textarea-comma",
+  template: "\n  <el-input\n    v-model=\"fixedValue\"\n    :rows=\"rows\"\n    :resize=\"resize\"\n    @change=\"onChange\"\n    @blur=\"onBlur\"\n    type=\"textarea\">\n  </el-input>\n  ",
+  props: {
+    value: {
+      default: ""
+    },
+    rows: {
+      default: 3
+    },
+    resize: {
+      default: "none"
+    },
+    disabled: {
+      default: false
+    },
+    distinct: {
+      // blur 时是否排重
+      default: false
+    },
+    filteempty: {
+      // blur 时是否过滤掉空行
+      default: true
+    },
+    sep: {
+      default: ","
+    }
+  },
+  data: function data() {
+    return {
+      fixedValue: ""
+    };
+  },
+  methods: {
+    update: function update() {
+      this.fixedValue = (this.value || "").split(this.sep).join("\n");
+    },
+    onChange: function onChange() {
+      var value = this.fixedValue.split("\n").join(this.sep);
+      this.$emit('input', value);
+      this.$emit('change', value);
+    },
+    onBlur: function onBlur() {
+      if (this.filteempty) {
+        this.fixedValue = this.fixedValue.split("\n").filter(function (_) {
+          return _;
+        }).join("\n");
+      }
+
+      if (this.distinct) {
+        var temp = {};
+        this.fixedValue.split("\n").forEach(function (line) {
+          temp[line] = true;
+        });
+        this.fixedValue = Object.keys(temp).join("\n");
+      }
+
+      this.onChange();
+    },
+    init: function init() {
+      this.update();
+    }
+  },
+  mounted: function mounted() {
+    this.init();
+  },
+  watch: {
+    value: function value(_value) {
+      this.update();
+    }
+  }
+};/* script */
+var __vue_script__$3 = script$3;
+/* template */
+
+/* style */
+
+var __vue_inject_styles__$3 = undefined;
+/* scoped */
+
+var __vue_scope_id__$3 = "data-v-2717d5ce";
+/* module identifier */
+
+var __vue_module_identifier__$3 = "data-v-2717d5ce";
+/* functional template */
+
+var __vue_is_functional_template__$3 = undefined;
+/* style inject */
+
+/* style inject SSR */
+
+/* style inject shadow dom */
+
+var __vue_component__$3 = /*#__PURE__*/normalizeComponent({}, __vue_inject_styles__$3, __vue_script__$3, __vue_scope_id__$3, __vue_is_functional_template__$3, __vue_module_identifier__$3, false, undefined, undefined, undefined);/* eslint-disable import/prefer-default-export */var components=/*#__PURE__*/Object.freeze({__proto__:null,ElCheckboxString: __vue_component__,ElSelectMultipleString: __vue_component__$1,ElDatePickerSecond: __vue_component__$2,ElTextareaComma: __vue_component__$3});var install = function installElementUiAdmin(Vue) {
   if (install.installed) return;
   install.installed = true;
   Object.entries(components).forEach(function (_ref) {
@@ -383,4 +641,4 @@ var plugin = {
     GlobalVue.use(plugin);
   }
 } // Default export is library as a whole, registered via Vue.use()
-exports.ElCheckboxString=__vue_component__;exports.default=plugin;
+exports.ElCheckboxString=__vue_component__;exports.ElDatePickerSecond=__vue_component__$2;exports.ElSelectMultipleString=__vue_component__$1;exports.ElTextareaComma=__vue_component__$3;exports.default=plugin;
