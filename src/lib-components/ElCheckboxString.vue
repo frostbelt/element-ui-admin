@@ -54,7 +54,6 @@ export default {
     },
   },
   methods : {
-    // props 变化
     update () {
       if(!this.value){
         this.fixedValue = [];

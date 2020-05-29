@@ -1,4 +1,6 @@
 <script>
+import Helper from "./helper"
+
 export default {
   name: "el-select-multiple-string",
   template: `
@@ -41,11 +43,12 @@ export default {
   },
   computed : {
     fixedOptions () {
-      return this.$helper.getFixedDataList(this.options);
+      return Helper.getFixedData(this.options, {
+        keys : [this.value_id],
+      });
     },
   },
   methods : {
-    // props 变化
     update () {
       if(!this.value){
         this.fixedValue = [];
